@@ -25,7 +25,6 @@ public class MyHome extends Activity {
 		setContentView(R.layout.my_home);
         llayout = (LinearLayout)findViewById(R.id.linearlayout) ;  
         
-        //其参数hostid大意是指定该AppWidgetHost 即本Activity的标记Id  
         mAppWidgetHost = new AppWidgetHost(MyHome.this, HOST_ID) ;   
           
         //为了保证AppWidget的及时更新 ， 必须在Activity的onCreate/onStar方法调用该方法  
