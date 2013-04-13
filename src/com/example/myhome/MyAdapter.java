@@ -1,5 +1,6 @@
 package com.example.myhome;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,12 +23,14 @@ public class MyAdapter extends BaseAdapter{
     private List<HashMap<String, Object>> data;
     private int resource;
     private Context context;
+    private ArrayList<HashMap<String, Object>> workflow;
      
     public MyAdapter(Context context,List<HashMap<String, Object>>data, int resource){
         this.mInflater = LayoutInflater.from(context);
         this.data=data;
         this.resource=resource;
         this.context=context;
+        workflow=((HomeApp)context.getApplicationContext()).getWorkFlow();
     }
     
     private class ViewHolder{
@@ -82,10 +85,19 @@ public class MyAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent=new Intent();
+				/*Intent intent=new Intent();
 				intent.setClass(context, TestActivity1.class);
 				((MyHome)context).startActivityForResult(intent, 1);
-				data.get(pos).put("image", R.drawable.email);
+				data.get(pos).put("image", R.drawable.email);*/
+				
+				String classname=(String)workflow.get(0).get("intent");
+				workflow.remove(0);
+				
+				Intent intent=new Intent();
+				intent.putExtra("workflow", workflow);
+				intent.setClassName(context, classname);
+				((MyHome)context).startActivity(intent);
+				
 			}
         	
         });

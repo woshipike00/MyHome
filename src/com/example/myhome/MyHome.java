@@ -51,7 +51,7 @@ public class MyHome extends Activity {
 		return data;
 	}
 
-	@Override
+	/*@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		if(requestCode==1 && resultCode==RESULT_OK){
@@ -59,7 +59,7 @@ public class MyHome extends Activity {
 			Toast.makeText(context, "test1", Toast.LENGTH_SHORT).show();
 			mAdapter.notifyDataSetChanged();
 		}
-	}
+	}*/
 
 
 	@Override

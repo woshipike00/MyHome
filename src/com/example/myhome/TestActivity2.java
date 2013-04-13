@@ -1,37 +1,32 @@
 package com.example.myhome;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TestActivity1 extends Activity{
-
-	private Button button;
+public class TestActivity2 extends Activity{
 	
+	private Button button;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.test1);
+		setContentView(R.layout.test2);
 		initUI();
 	}
 	
 	public void initUI(){
 		button=(Button)findViewById(R.id.button1);
-		button.setOnClickListener(new OnClickListener(){
-
+		button.setOnClickListener(new OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*setResult(RESULT_OK,new Intent());
-				TestActivity1.this.finish();*/
-				
 				
 			}
-			
 		});
 	}
 	

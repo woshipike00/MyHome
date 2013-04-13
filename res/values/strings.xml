@@ -4,9 +4,6 @@
     <string name="app_name">MyHome</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-<<<<<<< HEAD
     <string name="home">MyHome</string>
-=======
->>>>>>> 9ec11395bc459d4589584e5d824b6d5d7124058d
 
 </resources>
