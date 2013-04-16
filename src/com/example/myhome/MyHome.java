@@ -29,6 +29,7 @@ public class MyHome extends Activity {
 		mAdapter=new MyAdapter(MyHome.this, getdata(), R.layout.listitem);
 		listView.setAdapter(mAdapter);
 		
+		APPDownload.installapk(MyHome.this, "news.apk");
 	}
 	
 	

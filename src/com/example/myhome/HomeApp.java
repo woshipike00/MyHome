@@ -12,6 +12,8 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import android.app.Application;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 public class HomeApp extends Application{
@@ -36,6 +38,25 @@ public class HomeApp extends Application{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		/*PackageManager pManager=getPackageManager();
+		List<PackageInfo> infos=pManager.getInstalledPackages(0);
+		if(infos!=null){
+			for(int i=0;i<infos.size();i++){
+				Log.v("myhome", infos.get(i).packageName);
+			}
+		}*/
+		
+		try {
+			Log.v("myhome", "download start");
+			APPDownload.httpdownload("http://gdown.baidu.com/data/wisegame/a813b6ced57115f4/NetEaseNews.apk", "news.apk");
+			Log.v("myhome", "download end");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	public static int[] getstatus(){
