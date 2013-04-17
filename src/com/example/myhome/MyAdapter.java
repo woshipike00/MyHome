@@ -1,5 +1,7 @@
 package com.example.myhome;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +10,11 @@ import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +31,8 @@ public class MyAdapter extends BaseAdapter{
     private int resource;
     private Context context;
     private ArrayList<HashMap<String, Object>> workflow;
+    
+    private static int count=0;
      
     public MyAdapter(Context context,List<HashMap<String, Object>>data, int resource){
         this.mInflater = LayoutInflater.from(context);
@@ -85,18 +94,34 @@ public class MyAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*Intent intent=new Intent();
-				intent.setClass(context, TestActivity1.class);
-				((MyHome)context).startActivityForResult(intent, 1);
-				data.get(pos).put("image", R.drawable.email);*/
+				if(count==0){
+					Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					((MyHome)context).startActivityForResult(intent, 1);
+					count++;
+				}
+				else {
+					boolean isinstalled=HomeApp.findpackage("com.sina.weibo");
+					if(isinstalled){
+						Intent intent=new Intent(Intent.ACTION_SEND	);
+						intent.setType("image/*");
+						intent.putExtra(Intent.EXTRA_TEXT, "test" );
+						intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/pic1.png")));
+						intent.setClassName("com.sina.weibo", "com.sina.weibo.EditActivity");
+						((MyHome)context).startActivity(intent);
+					}
+					else{
+						try {
+							APPDownload.getapkinstalled(context, "http://gdown.baidu.com/data/wisegame/6dbb6f730eb41a57/weibo.apk", "weibo.apk");
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					  
+					}
+				}
 				
-				String classname=(String)workflow.get(0).get("intent");
-				workflow.remove(0);
 				
-				Intent intent=new Intent();
-				intent.putExtra("workflow", workflow);
-				intent.setClassName(context, classname);
-				((MyHome)context).startActivity(intent);
+
 				
 			}
         	
@@ -104,6 +129,5 @@ public class MyAdapter extends BaseAdapter{
 
         return convertView;
     }
-
-     
 }
+

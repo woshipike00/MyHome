@@ -13,8 +13,10 @@ import org.dom4j.io.SAXReader;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -22,7 +24,7 @@ public class HomeApp extends Application{
 	
 	private static int[] status;
 	private ArrayList<HashMap<String, Object>> workflow;
-	
+	private static PackageManager pManager;
 	
 	
 	@Override
@@ -30,8 +32,9 @@ public class HomeApp extends Application{
 		// TODO Auto-generated method stub
 		Log.v("myhome", "appstart");
 		super.onCreate();
+		
 		workflow=new ArrayList<HashMap<String,Object>>();
-		try {
+		/*try {
 			XMLParse("bpmn01.bpmn");
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
@@ -39,18 +42,34 @@ public class HomeApp extends Application{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		/*PackageManager pManager=getPackageManager();
-		List<PackageInfo> infos=pManager.getInstalledPackages(0);
-		if(infos!=null){
-			for(int i=0;i<infos.size();i++){
-				Log.v("myhome", infos.get(i).packageName);
-			}
 		}*/
+		
+		pManager=getPackageManager();
+		
+		
+		
+		
 		
 
 		
+		
+	}
+	
+	
+	//查看系统中是否存在包
+	public static boolean findpackage(String packageName) {
+		List<PackageInfo> infos=pManager.getInstalledPackages(0);
+		if(infos!=null){
+			int i=0;
+			for(;i<infos.size();i++){
+				if(infos.get(i).packageName.equals(packageName))
+					break;
+			}
+			if(i<infos.size())
+				return true;
+			return false;
+		}
+		return false;
 		
 	}
 
@@ -62,6 +81,12 @@ public class HomeApp extends Application{
 		return workflow;
 	}
 	
+	
+	public void setworkflow(){
+		
+	}
+	
+	//解析bpmn文件
 	public void XMLParse(String filename) throws DocumentException, IOException{
 		Log.v("myhome", "xmlparse");
 		SAXReader reader=new SAXReader();

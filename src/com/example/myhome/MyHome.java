@@ -50,12 +50,12 @@ public class MyHome extends Activity {
 		//Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		//startActivityForResult(intent, CAMERA_PIC_GET);
 		
-		Intent intent=new Intent(Intent.ACTION_SEND	);
-		intent.setType("image/*");
-		intent.putExtra(Intent.EXTRA_TEXT, "test" );
-		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/pic1.png")));
-		intent.setClassName("com.sina.weibo", "com.sina.weibo.EditActivity");
-		startActivity(intent);
+		//Intent intent=new Intent(Intent.ACTION_SEND	);
+		//intent.setType("image/*");
+		//intent.putExtra(Intent.EXTRA_TEXT, "test" );
+		//intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/pic1.png")));
+		//intent.setClassName("com.sina.weibo", "com.sina.weibo.EditActivity");
+		//startActivity(intent);
 
 		
 	}
@@ -85,8 +85,9 @@ public class MyHome extends Activity {
 		// TODO Auto-generated method stub
 		if(requestCode==1 && resultCode==RESULT_OK){
 			Log.v("myhome", "onactivityresult");
-			//Toast.makeText(context, "test1", Toast.LENGTH_SHORT).show();
-			//mAdapter.notifyDataSetChanged();
+
+			
+			//保存图片到sd卡
 			Bitmap pic=(Bitmap)data.getExtras().get("data");
 			String filepath=Environment.getExternalStorageDirectory().getAbsolutePath()+"/pic1.png";
 			try {
