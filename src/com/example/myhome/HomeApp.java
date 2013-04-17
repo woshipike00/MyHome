@@ -12,8 +12,10 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import android.app.Application;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.provider.MediaStore;
 import android.util.Log;
 
 public class HomeApp extends Application{
@@ -47,14 +49,7 @@ public class HomeApp extends Application{
 			}
 		}*/
 		
-		try {
-			Log.v("myhome", "download start");
-			APPDownload.httpdownload("http://gdown.baidu.com/data/wisegame/a813b6ced57115f4/NetEaseNews.apk", "news.apk");
-			Log.v("myhome", "download end");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		
 		
 	}
