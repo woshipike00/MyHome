@@ -51,38 +51,33 @@ public class FloatingWindow {
 		//set floating window movable
 		windowView.setOnTouchListener(new View.OnTouchListener() {
 			
+
+			float startx=0;
+			float starty=0;
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
-		        float x=event.getRawX();
-				float y=event.getRawY();
-				float startx=0,starty=0;
+
+				float x=0,y=0;
 				
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
 					startx=event.getX();
 					starty=event.getY();
-					updatePosition(x-startx, y-starty);
-					Log.v("myhome", "action_down: "+(x-startx)+","+(y-starty));
+					//updatePosition(x-startx, y-starty);
 					break;
 				case MotionEvent.ACTION_MOVE:
-					startx=event.getX();
-					starty=event.getY();
-					updatePosition(x-startx, y-starty);
-					Log.v("myhome", "action_move: "+x+","+y);
-					Log.v("myhome", "action_move: "+startx+","+starty);
-					Log.v("myhome", "action_move: "+(x-startx)+","+(y-starty));
+					x=event.getX();
+					y=event.getY();
+					updatePosition(params.x+x-startx, params.y+y-starty);
+					//Log.v("myhome", "action_move: "+x+","+y);
+					//Log.v("myhome", "action_move: "+startx+","+starty);
+					//Log.v("myhome", "action_move: "+(x-startx)+","+(y-starty));
 
 					break;
 				case MotionEvent.ACTION_UP:
-					startx=event.getX();
-					starty=event.getY();
-					updatePosition(x-startx, y-starty);
 					
-					Log.v("myhome", "action_up: "+(x-startx)+","+(y-starty));
-
-
 					break;
 		
 				default:
