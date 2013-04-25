@@ -29,6 +29,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.ListView;
@@ -46,6 +47,9 @@ public class MyHome extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.context=MyHome.this;
+		
+		//clear the title bar
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.my_home);
 		initUI();
 		
