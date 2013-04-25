@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.example.myhome.R;
 import com.myhome.utils.APPDownload;
+import com.myhome.widgets.MyAdapter;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,8 +23,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,8 +40,7 @@ public class MyHome extends Activity {
 	private List<HashMap<String, Object>> data;
 	public static  Context context;
 	private MyAdapter mAdapter;
-	private final int CAMERA_PIC_GET=1;
-	private NotificationManager notificationManager;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,26 +48,14 @@ public class MyHome extends Activity {
 		this.context=MyHome.this;
 		setContentView(R.layout.my_home);
 		initUI();
-		mAdapter=new MyAdapter(MyHome.this, getdata(), R.layout.listitem);
-		listView.setAdapter(mAdapter);
-		
-        MyAdapter.count=0;
-		Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		//intent.setClass(context, ProxyActivity.class);
-		notificationManager=(NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
-		Notification notification=new Notification(R.drawable.computer_monitor, "myhome", System.currentTimeMillis());
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		PendingIntent contentIntent=PendingIntent.getActivity(context, 0, intent, 0);
-		notification.setLatestEventInfo(context, "step", "current: myhome\n"+"next: camera", contentIntent);
-		notification.flags=Notification.FLAG_AUTO_CANCEL;
-		notificationManager.notify(0, notification);
-
 		
 	}
 	
 	
 	public void initUI(){
 		listView=(ListView)findViewById(R.id.listView1); 
+		mAdapter=new MyAdapter(MyHome.this, getdata(), R.layout.listitem);
+		listView.setAdapter(mAdapter);
 	}
 	
 	public List<HashMap<String, Object>> getdata(){
@@ -84,8 +78,6 @@ public class MyHome extends Activity {
 		// TODO Auto-generated method stub
 		if(requestCode==1 && resultCode==RESULT_OK){
 			Log.v("myhome", "onactivityresult");
-
-			//MyAdapter.count++;
 			
 			//保存图片到sd卡
 			Bitmap pic=(Bitmap)data.getExtras().get("data");
@@ -102,35 +94,7 @@ public class MyHome extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			// bad
-			boolean isinstalled=HomeApp.findpackage("com.sina.weibo");
-			if(isinstalled){
-				Intent intent=new Intent(Intent.ACTION_SEND	);
-				intent.setType("image/*");
-				intent.putExtra(Intent.EXTRA_TEXT, "test" );
-				intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/pic1.png")));
-				intent.setClassName("com.sina.weibo", "com.sina.weibo.EditActivity");
-				
-				Notification notification=new Notification(R.drawable.computer_monitor, "myhome", System.currentTimeMillis());
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				PendingIntent contentIntent=PendingIntent.getActivity(context, 0, intent, 0);
-				notification.setLatestEventInfo(context, "step", "current: camera\n"+"next: sina weibo", contentIntent);
-				notification.flags=Notification.FLAG_AUTO_CANCEL;
-				notificationManager.notify(0, notification);
-				
-				//((MyHome)context).startActivity(intent);
-			}
-			else{
-				try {
-					APPDownload.getapkinstalled(context, "http://gdown.baidu.com/data/wisegame/6dbb6f730eb41a57/weibo.apk", "weibo.apk");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			  
-			}
+
 			
 		}
 	}

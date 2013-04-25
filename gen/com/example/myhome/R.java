@@ -35,10 +35,9 @@ public final class R {
         public static final int textView1=0x7f080001;
     }
     public static final class layout {
-        public static final int listitem=0x7f030000;
-        public static final int my_home=0x7f030001;
-        public static final int test1=0x7f030002;
-        public static final int test2=0x7f030003;
+        public static final int floating_window=0x7f030000;
+        public static final int listitem=0x7f030001;
+        public static final int my_home=0x7f030002;
     }
     public static final class menu {
         public static final int my_home=0x7f070000;
