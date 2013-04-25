@@ -26,14 +26,14 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
 
-        android:theme="@style/AppTheme" android:name="HomeApp">
+        android:theme="@style/AppTheme" android:name="com.myhome.activity.HomeApp">
         <activity
-            android:name="com.example.myhome.MyHome"
+            android:name="com.myhome.activity.MyHome"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
                 
             </intent-filter>
@@ -41,6 +41,7 @@
 
         <activity android:name="TestActivity1"></activity>
         <activity android:name="TestActivity2"></activity>
+        <activity android:name="com.myhome.activity.ProxyActivity"></activity>
 
     </application>
 
