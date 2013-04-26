@@ -54,6 +54,8 @@ public class FloatingWindow {
 		//set floating window movable
 		windowView.setOnTouchListener(new View.OnTouchListener() {
 			
+			float startx=0;
+			float starty=0;
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -61,8 +63,7 @@ public class FloatingWindow {
 
 				float x=event.getRawX();
 				float y=event.getRawY()-25;
-				float startx=0;
-				float starty=0;
+				
 				
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
