@@ -95,10 +95,10 @@ public class MyHome extends Activity {
 					Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 					((MyHome)context).startActivityForResult(intent, 1);
 					count++;
-					mfWindow.changeContent("current: camera"+"\n"+"next: weibo");
+					mfWindow.changeContent("camera --> weibo");
 
 				}
-				else {
+				else if(count==1){
 					boolean isinstalled=PackageUtil.findpackage(context.getApplicationContext(),"com.sina.weibo");
 					if(isinstalled){
 						Intent intent=new Intent(Intent.ACTION_SEND	);
@@ -107,7 +107,8 @@ public class MyHome extends Activity {
 						intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/pic1.png")));
 						intent.setClassName("com.sina.weibo", "com.sina.weibo.EditActivity");
 						((MyHome)context).startActivity(intent);
-						mfWindow.changeContent("current: weibo"+"\n"+"next: sms");
+						count++;
+						mfWindow.changeContent("weibo --> sms");
 					}
 					else{
 						try {
@@ -120,7 +121,14 @@ public class MyHome extends Activity {
 					}
 				}
 				
-				
+				else {
+					Intent sendIntent = new Intent(Intent.ACTION_SENDTO,Uri.parse("sms:")); 
+					//sendIntent.putExtra("address", "123456789"); 
+					sendIntent.putExtra("sms_body", "I hava sent a photo to my sina weibo!"); 
+					startActivity(sendIntent);
+					mfWindow.changeContent("end");
+
+				}
 
 				
 			}
