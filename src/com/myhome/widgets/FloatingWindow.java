@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ public class FloatingWindow {
 	private WindowManager windowManager;
 	private WindowManager.LayoutParams params;
 	private View windowView;
+	private TextView mTextView;
+	private ImageView mImageView;
 	private LayoutInflater layoutInflater;
 	
 	public FloatingWindow(Context context){
@@ -46,10 +49,10 @@ public class FloatingWindow {
 	
 	public void setView(int resource){
 		windowView=layoutInflater.inflate(resource, null);
-		ImageView iv=(ImageView)windowView.findViewById(R.id.imageView1);
-		TextView tv=(TextView)windowView.findViewById(R.id.textView1);
-		tv.setTextColor(Color.WHITE);
-		iv.setAlpha(150);
+		mImageView=(ImageView)windowView.findViewById(R.id.imageView1);
+		mTextView=(TextView)windowView.findViewById(R.id.textView1);
+		mTextView.setTextColor(Color.WHITE);
+		mImageView.setAlpha(150);
 		
 		//set floating window movable
 		windowView.setOnTouchListener(new View.OnTouchListener() {
@@ -97,6 +100,10 @@ public class FloatingWindow {
 	
 	public void hide(){
 		windowManager.removeView(windowView);
+	}
+	
+	public void changeContent(String content){
+		mTextView.setText(content);
 	}
 
 }

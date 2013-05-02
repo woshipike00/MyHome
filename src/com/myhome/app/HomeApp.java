@@ -45,6 +45,9 @@ public class HomeApp extends Application{
 		
 	}
 	
+	public FloatingWindow getFloatingWindow(){
+		return floatingWindow;
+	}
 
 
 }
