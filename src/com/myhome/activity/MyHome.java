@@ -143,22 +143,11 @@ public class MyHome extends Activity {
 		if(requestCode==1 && resultCode==RESULT_OK){
 			Log.v("myhome", "onactivityresult");
 			
-			//保存图片到sd卡
-			Bitmap pic=(Bitmap)data.getExtras().get("data");
-			String filepath=Environment.getExternalStorageDirectory().getAbsolutePath()+"/pic1.png";
-			try {
-				FileOutputStream out=new FileOutputStream(new File(filepath));
-				pic.compress(Bitmap.CompressFormat.PNG,100,out);
-				out.flush();
-				out.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			Intent newIntent=new Intent();
+			newIntent.putExtras(data.getExtras());
+			newIntent.setClassName("com.myhome.activity.MyHome", "com.myhome.activity.PhotoHandleActivity");
+			startActivityForResult(newIntent, 1);
+			
 			
 		}
 	}
