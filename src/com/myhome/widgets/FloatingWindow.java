@@ -5,14 +5,12 @@ import com.example.myhome.R;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,8 +24,8 @@ public class FloatingWindow {
 	private LayoutInflater layoutInflater;
 	
 	public FloatingWindow(Context context){
-		windowManager=(WindowManager) context.getSystemService(context.WINDOW_SERVICE);
-		layoutInflater=(LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+		windowManager=(WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		layoutInflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		params=new LayoutParams();
 	}
 	

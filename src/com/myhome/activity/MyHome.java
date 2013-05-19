@@ -1,15 +1,16 @@
 package com.myhome.activity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.example.myhome.R;
 import com.myhome.app.HomeApp;
 import com.myhome.utils.APPDownload;
+import com.myhome.utils.AppParser;
+import com.myhome.utils.IntentUtil;
 import com.myhome.utils.PackageUtil;
 import com.myhome.widgets.FloatingWindow;
 import com.myhome.widgets.MyPagerAdapter;
@@ -17,12 +18,11 @@ import com.myhome.widgets.MyPagerAdapter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.app.Activity;
+import android.app.Application;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,10 +36,12 @@ import android.widget.TextView;
 public class MyHome extends Activity {
 
 	private Context context;
+	private Application mApp;
 	private List<View> viewList;
 	private LayoutInflater mLayoutInflater;
 	private ViewPager mViewPager;
 	private FloatingWindow mfWindow;
+	private ArrayList<AppParser> appParsers;
 
 	private static int count=0;
 	
@@ -56,12 +58,15 @@ public class MyHome extends Activity {
 	
 	
 	public void init(){
+		
+		this.context=MyHome.this;
+		this.mApp=getApplication();
 		mLayoutInflater=(LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 		mfWindow=((HomeApp)getApplication()).getFloatingWindow();
-		this.context=MyHome.this;
 		mViewPager=(ViewPager)findViewById(R.id.viewpagerLayout);
-		
 		initViewPager();
+		appParsers=((HomeApp)mApp).getAppParsers();
+
 	}
 
 	
@@ -92,10 +97,20 @@ public class MyHome extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(count==0){
-					Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					((MyHome)context).startActivityForResult(intent, 1);
+					
+					Intent intent=new Intent();
+					IntentUtil.confIntent(intent, null, appParsers.get(count).getMethodList());
+					if(appParsers.get(count).getType().equals("startActivity"))
+						((MyHome)context).startActivity(intent);
+					else
+						((MyHome)context).startActivityForResult(intent, 1);
+
+					
+					/*Intent intent=new Intent("android.media.action.IMAGE_CAPTURE");
+					((MyHome)context).startActivityForResult(intent, 1);*/
 					count++;
 					mfWindow.changeContent("camera --> weibo");
+					
 
 				}
 				else if(count==1){
@@ -145,8 +160,8 @@ public class MyHome extends Activity {
 			
 			Intent newIntent=new Intent();
 			newIntent.putExtras(data.getExtras());
-			newIntent.setClassName("com.myhome.activity.MyHome", "com.myhome.activity.PhotoHandleActivity");
-			startActivityForResult(newIntent, 1);
+			newIntent.setClassName("com.example.myhome", "com.myhome.activity.PhotoHandleActivity");
+			startActivityForResult(newIntent, 2);
 			
 			
 		}

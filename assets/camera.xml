@@ -1,0 +1,26 @@
+<activity>
+
+<source type="System_default"></source>
+
+<message>
+        
+    <action type="startActivity"></action>
+    
+    <elements>
+        	<element flag="6"  source="null">
+        	    <parameter>action:android.media.action.IMAGE_CAPTURE</parameter>
+        	</element>
+   	      	
+   	</elements>
+   	
+</message>
+
+<!-- Partner link type -->
+<partnerLinkType name="cameraLT">
+  <role name="cameraService">
+    <portType name="cameraPT">
+    </portType>
+  </role>
+</partnerLinkType>
+    
+</activity>	

@@ -1,5 +1,6 @@
 package com.myhome.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -36,7 +37,7 @@ public class IntentUtil {
 	 * @param srcIntent intent get in the onActivityResult method
 	 * @param confs methods to set the intent read from the xml file
 	 */
-	public static void confIntent(Intent intent, Intent srcIntent, HashSet<HashMap<String, String>> confs){
+	public static void confIntent(Intent intent, Intent srcIntent, ArrayList<HashMap<String, String>> confs){
 		for (HashMap<String, String> conf:confs){
 			setIntent(intent, conf);
 		}

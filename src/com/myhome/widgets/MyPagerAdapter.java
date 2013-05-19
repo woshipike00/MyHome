@@ -10,10 +10,10 @@ import android.view.View;
 public class MyPagerAdapter extends PagerAdapter{
 	
 	private List<View> viewList;
-	private Context context;
+	//private Context context;
 	
 	public MyPagerAdapter(Context context,List<View> viewList){
-		this.context=context;
+		//this.context=context;
 		this.viewList=viewList;
 	}
 	

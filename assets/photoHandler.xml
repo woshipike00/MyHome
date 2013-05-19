@@ -1,0 +1,31 @@
+<activity>
+
+<source type="Buildin"></source>
+
+<message>
+        
+    <action type="startActivity"></action>
+    
+    <elements>
+        	<element flag="putExtra"  source="ab">
+        	    <parameter>name:a</parameter>
+        	    <parameter>value:b</parameter>              	        
+        	</element>
+        
+        	<element flag="setClassName"  source="cd">
+        	    <parameter>packageName:c</parameter>
+        	    <parameter>className:d</parameter>
+        	</element>	      	
+   	</elements>
+   	
+</message>
+
+<!-- Partner link type -->
+<partnerLinkType name="photoHandlerLT">
+  <role name="photaHandlerService">
+    <portType name="photoHandlerPT">
+    </portType>
+  </role>
+</partnerLinkType>
+    
+</activity>

@@ -15,6 +15,8 @@ public class PhotoHandleActivity extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		super.onCreate(savedInstanceState);
 		// TODO Auto-generated method stub
 		//保存图片到sd卡
 		Intent data=getIntent();

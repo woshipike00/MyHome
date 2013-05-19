@@ -1,0 +1,31 @@
+<activity>
+
+<source type="System_default"></source>
+
+<message>
+        
+    <action type="startActivity"></action>
+    
+    <elements>
+        	<element flag="putExtra"  source="ab">
+        	    <parameter>name:a</parameter>
+        	    <parameter>value:b</parameter>              	        
+        	</element>
+        
+        	<element flag="setClassName"  source="cd">
+        	    <parameter>packageName:c</parameter>
+        	    <parameter>className:d</parameter>
+        	</element>	      	
+   	</elements>
+   	
+</message>
+
+<!-- Partner link type -->
+<partnerLinkType name="smsLT">
+  <role name="smsService">
+    <portType name="smsPT">
+    </portType>
+  </role>
+</partnerLinkType>
+    
+</activity>
