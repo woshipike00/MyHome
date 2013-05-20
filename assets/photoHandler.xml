@@ -4,17 +4,15 @@
 
 <message>
         
-    <action type="startActivity"></action>
+    <action type="startActivityForResult"></action>
     
     <elements>
-        	<element flag="putExtra"  source="ab">
-        	    <parameter>name:a</parameter>
-        	    <parameter>value:b</parameter>              	        
+        	<element flag="6"  source="srcIntent">
         	</element>
         
-        	<element flag="setClassName"  source="cd">
-        	    <parameter>packageName:c</parameter>
-        	    <parameter>className:d</parameter>
+        	<element flag="8"  source="null">
+        	    <parameter>packageName:com.example.myhome</parameter>
+        	    <parameter>className:com.myhome.activity.PhotoHandleActivity</parameter>
         	</element>	      	
    	</elements>
    	

@@ -2,10 +2,9 @@ package com.myhome.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 public class IntentUtil {
 	
@@ -14,19 +13,24 @@ public class IntentUtil {
 	public static final int PUTEXTRA_STRING=2;
 	public static final int PUTEXTRA_INT=3;
 	public static final int PUTEXTRA_DOUBLE=4;
-	public static final int PUTEXTRAS=5;
-	public static final int SET_ACTION=6;
-	public static final int SET_CLASSNAME=7;
-	public static final int SET_DATA=8;
-	public static final int SET_DATAANDNORMALIZE=9;
-	public static final int SET_DATAANDTYPE=10;
-	public static final int SET_DATAANDTYPEANDNORMALIZE=11;
-	public static final int SET_FLAGS=12;
-	public static final int SET_PACKAGE=13;
-	public static final int SET_TYPE=14;
-	public static final int SET_TYPEANDNORMALIZE=15;
+	public static final int PUTEXTRA_PARCELABLE=5;
+	public static final int PUTEXTRAS=6;
+	public static final int SET_ACTION=7;
+	public static final int SET_CLASSNAME=8;
+	public static final int SET_DATA=9;
+	public static final int SET_DATAANDNORMALIZE=10;
+	public static final int SET_DATAANDTYPE=11;
+	public static final int SET_DATAANDTYPEANDNORMALIZE=12;
+	public static final int SET_FLAGS=13;
+	public static final int SET_PACKAGE=14;
+	public static final int SET_TYPE=15;
+	public static final int SET_TYPEANDNORMALIZE=16;
 	
-	public static final int GETINTEXTRA=16;
+	//public static final int GETINTEXTRA=16;
+	//public static final int GETDOUBLEEXTRA=17;
+	//public static final int GETSTRINGEXTRA=18;
+	//public static final int GETEXTRAS=19;
+
 	
 
 	
@@ -39,108 +43,105 @@ public class IntentUtil {
 	 */
 	public static void confIntent(Intent intent, Intent srcIntent, ArrayList<HashMap<String, String>> confs){
 		for (HashMap<String, String> conf:confs){
-			setIntent(intent, conf);
+			setIntent(intent, srcIntent, conf);
 		}
 	}
 	
-	public static void setIntent(Intent intent, HashMap<String, String> conf){
+	public static void setIntent(Intent intent, Intent srcIntent, HashMap<String, String> conf){
 		int flag=Integer.parseInt(conf.get("flag"));
-		String arg1,arg2;
+		String source=conf.get("source");
+		
 		switch (flag) {
 		case ADD_CATEGORY:
-			arg1=conf.get("category");
-			intent.addCategory(arg1);
+			intent.addCategory(conf.get("category"));
 			break;
 			
 		case ADD_FLAGS:
-			arg1=conf.get("flags");
-			intent.addFlags(Integer.parseInt(arg1));
+			intent.addFlags(Integer.parseInt(conf.get("flags")));
 			break;
 			
 		case PUTEXTRA_STRING:
-			arg1=conf.get("name");
-			arg2=conf.get("value");
-			intent.putExtra(arg1, arg2);
+			if(source.equals("null"))
+				intent.putExtra(conf.get("name"), conf.get("value"));
+			else
+				intent.putExtra(conf.get("name"), srcIntent.getStringExtra(conf.get("value")));
 			break;
 			
 		case PUTEXTRA_INT:
-			arg1=conf.get("name");
-			arg2=conf.get("value");
-			intent.putExtra(arg1, Integer.parseInt(arg2));
+			if(source.equals("null")) 
+				intent.putExtra(conf.get("name"), Integer.parseInt(conf.get("value")));
+			else
+				intent.putExtra(conf.get("name"), srcIntent.getIntExtra(conf.get("value"), 0));
 			break;
 			
 		case PUTEXTRA_DOUBLE:
-			arg1=conf.get("name");
-			arg2=conf.get("value");
-			intent.putExtra(arg1, Double.parseDouble(arg2));
+			if(source.equals("null"))
+				intent.putExtra(conf.get("name"), Double.parseDouble(conf.get("value")));
+			else
+				intent.putExtra(conf.get("name"), srcIntent.getDoubleExtra(conf.get("value"), 0));
+			break;
+			
+		case PUTEXTRA_PARCELABLE:
+			if(source.equals("null")) 
+				break;
+			else
+				intent.putExtra(conf.get("name"), srcIntent.getParcelableExtra(conf.get("value")));
 			break;
 			
 		case PUTEXTRAS:
-			//arg1=conf.get("name");
-			//arg2=conf.get("value");
-			//intent.putExtra(arg1, arg2);
+			if(source.equals("null"))
+				break;
+			else
+				intent.putExtras(srcIntent.getExtras());
 			break;
 			
 		case SET_ACTION:
-			arg1=conf.get("action");
-			intent.setAction(arg1);
+			intent.setAction(conf.get("action"));
 			break;
 			
 		case SET_CLASSNAME:
-			arg1=conf.get("packageName");
-			arg2=conf.get("className");
-			intent.setClassName(arg1, arg2);
+			intent.setClassName(conf.get("packageName"), conf.get("className"));
 			break;
 			
 		case SET_DATA:
-			arg1=conf.get("data");
-			intent.setData(Uri.parse(arg1));
+			intent.setData(Uri.parse(conf.get("data")));
 			break;
 			
 		case SET_DATAANDNORMALIZE:
-			arg1=conf.get("data");
-			intent.setData(Uri.parse(arg1));
+			intent.setData(Uri.parse(conf.get("data")));
 			break;	
 			
 		case SET_DATAANDTYPE:
-			arg1=conf.get("data");
-			arg2=conf.get("type");
-			intent.setDataAndType(Uri.parse(arg1),arg2);
+			intent.setDataAndType(Uri.parse(conf.get("data")),conf.get("type"));
 			break;
 			
 		case SET_DATAANDTYPEANDNORMALIZE:
-			arg1=conf.get("data");
-			arg2=conf.get("type");
-			intent.setDataAndType(Uri.parse(arg1),arg2);
+			intent.setDataAndType(Uri.parse(conf.get("data")),conf.get("type"));
 			break;
 			
 		case SET_FLAGS:
-			arg1=conf.get("flags");
-			intent.setFlags(Integer.parseInt(arg1));
+			intent.setFlags(Integer.parseInt(conf.get("flags")));
 			break;
 			
 		case SET_PACKAGE:
-			arg1=conf.get("packageName");
-			intent.setPackage(arg1);
+			intent.setPackage(conf.get("packageName"));
 			break;
 			
 		case SET_TYPE:
-			arg1=conf.get("type");
-			intent.setType(arg1);
+			intent.setType(conf.get("type"));
 			break;	
 			
 		case SET_TYPEANDNORMALIZE:
-			arg1=conf.get("type");
-			intent.setType(arg1);
+			intent.setType(conf.get("type"));
 			break;
 
 		default:
-			System.err.println("can't handle the setmethod");
+			Log.v("myhome", "can't handle the setmethod");
 			break;
 		}
 	}
 	
-	public static Object getArgsFromSrc(int getflag,String key,Intent src,HashMap<String, String> conf){
+	/*public static Object getArgsFromSrc(int getflag,String key,Intent src,HashMap<String, String> conf){
 		
 		switch (getflag) {
 		case GETINTEXTRA:
@@ -153,7 +154,7 @@ public class IntentUtil {
 			
 		}
 		
-	}
+	}*/
 	
 
 }

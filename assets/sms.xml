@@ -7,15 +7,20 @@
     <action type="startActivity"></action>
     
     <elements>
-        	<element flag="putExtra"  source="ab">
-        	    <parameter>name:a</parameter>
-        	    <parameter>value:b</parameter>              	        
+        
+            <element flag="7"  source="null">
+        	    <parameter>action:android.intent.action.SENDTO</parameter>
+        	</element>
+        	
+            <element flag="9"  source="null">
+        	    <parameter>data:sms:</parameter>
         	</element>
         
-        	<element flag="setClassName"  source="cd">
-        	    <parameter>packageName:c</parameter>
-        	    <parameter>className:d</parameter>
-        	</element>	      	
+        	<element flag="2"  source="null">
+        	    <parameter>name:sms_body</parameter>
+        	    <parameter>value:I hava sent a photo to my sina weibo!</parameter>              	        
+        	</element>
+              	
    	</elements>
    	
 </message>

@@ -51,9 +51,10 @@ public class AppParser {
 				
 				List<?> pars=((Element)ele.get(i)).elements("parameter");
 				for (int j=0; j<pars.size(); j++) {
-					String keyString=((Element)pars.get(j)).getText().split(":")[0];
-					String valueString=((Element)pars.get(j)).getText().split(":")[1];
+					String keyString=((Element)pars.get(j)).getText().split(":",2)[0];
+					String valueString=((Element)pars.get(j)).getText().split(":",2)[1];
 					elements.get(i).put(keyString, valueString);
+					
 				}
 			}	
 			

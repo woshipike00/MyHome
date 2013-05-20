@@ -7,14 +7,27 @@
     <action type="startActivity"></action>
     
     <elements>
-        	<element flag="putExtra"  source="ab">
-        	    <parameter>name:a</parameter>
-        	    <parameter>value:b</parameter>              	        
+        	<element flag="7"  source="null">
+        	    <parameter>action:android.intent.action.SEND</parameter>
         	</element>
+        	
+        	<element flag="15"  source="null">
+        	    <parameter>type:image/*</parameter>
+        	</element>
+        	
+        	<element flag="2"  source="null">
+        	    <parameter>name:android.intent.extra.TEXT</parameter>
+        	    <parameter>value:test</parameter>
+        	</element>	
+        	
+        	<element flag="5"  source="srcIntent">
+        	    <parameter>name:android.intent.extra.STREAM</parameter>
+        	    <parameter>value:photouri</parameter>
+        	</element>	
         
-        	<element flag="setClassName"  source="cd">
-        	    <parameter>packageName:c</parameter>
-        	    <parameter>className:d</parameter>
+        	<element flag="8"  source="null">
+        	    <parameter>packageName:com.sina.weibo</parameter>
+        	    <parameter>className:com.sina.weibo.EditActivity</parameter>
         	</element>	      	
    	</elements>
    	

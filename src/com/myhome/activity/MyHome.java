@@ -2,6 +2,9 @@ package com.myhome.activity;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +21,7 @@ import com.myhome.widgets.MyPagerAdapter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.app.Activity;
 import android.app.Application;
 
@@ -41,8 +45,10 @@ public class MyHome extends Activity {
 	private LayoutInflater mLayoutInflater;
 	private ViewPager mViewPager;
 	private FloatingWindow mfWindow;
+	private ArrayList<String> appList;
 	private ArrayList<AppParser> appParsers;
-
+	private ArrayList<HashMap<String, String>> confs;
+	private static Intent srcIntent;
 	private static int count=0;
 	
 	@Override
@@ -66,6 +72,8 @@ public class MyHome extends Activity {
 		mViewPager=(ViewPager)findViewById(R.id.viewpagerLayout);
 		initViewPager();
 		appParsers=((HomeApp)mApp).getAppParsers();
+		appList=((HomeApp)mApp).getAppList();
+
 
 	}
 
@@ -96,55 +104,47 @@ public class MyHome extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(count==0){
-					
-					Intent intent=new Intent();
-					IntentUtil.confIntent(intent, null, appParsers.get(count).getMethodList());
-					if(appParsers.get(count).getType().equals("startActivity"))
-						((MyHome)context).startActivity(intent);
-					else
-						((MyHome)context).startActivityForResult(intent, 1);
-
-					
-					/*Intent intent=new Intent("android.media.action.IMAGE_CAPTURE");
-					((MyHome)context).startActivityForResult(intent, 1);*/
-					count++;
-					mfWindow.changeContent("camera --> weibo");
-					
-
+				
+				if(count>=appParsers.size()){
+					Log.v("myhome", "workflow end");
+					return;
 				}
-				else if(count==1){
+				
+				
+				AppParser appParser=appParsers.get(count);
+				
+				//check if we need to install the new software
+				if(appParser.getType().equals("Third_party")){
 					boolean isinstalled=PackageUtil.findpackage(context.getApplicationContext(),"com.sina.weibo");
-					if(isinstalled){
-						Intent intent=new Intent(Intent.ACTION_SEND	);
-						intent.setType("image/*");
-						intent.putExtra(Intent.EXTRA_TEXT, "test" );
-						intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/pic1.png")));
-						intent.setClassName("com.sina.weibo", "com.sina.weibo.EditActivity");
-						((MyHome)context).startActivity(intent);
-						count++;
-						mfWindow.changeContent("weibo --> sms");
-					}
-					else{
+					if(isinstalled)
+						Log.v("myhome", "the package has been installed");
+					else {
+						
+						Log.v("myhome", "download and install");
 						try {
 							APPDownload.getapkinstalled(context, "http://gdown.baidu.com/data/wisegame/6dbb6f730eb41a57/weibo.apk", "weibo.apk");
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-					  
 					}
 				}
 				
-				else {
-					Intent sendIntent = new Intent(Intent.ACTION_SENDTO,Uri.parse("sms:")); 
-					//sendIntent.putExtra("address", "123456789"); 
-					sendIntent.putExtra("sms_body", "I hava sent a photo to my sina weibo!"); 
-					startActivity(sendIntent);
+				//set the new intent and start
+				Intent newIntent=new Intent();
+				confs=appParsers.get(count).getMethodList();
+				IntentUtil.confIntent(newIntent, srcIntent, confs);
+				
+				if(appParser.getActionType().equals("startActivity"))
+					((MyHome)context).startActivity(newIntent);
+				else
+					((MyHome)context).startActivityForResult(newIntent, 1);
+
+				if(count>=appList.size()-1)
 					mfWindow.changeContent("end");
-
-				}
-
+				else
+				    mfWindow.changeContent(appList.get(count)+" --> "+appList.get(count+1));
+				count++;
 				
 			}
         	
@@ -158,12 +158,7 @@ public class MyHome extends Activity {
 		if(requestCode==1 && resultCode==RESULT_OK){
 			Log.v("myhome", "onactivityresult");
 			
-			Intent newIntent=new Intent();
-			newIntent.putExtras(data.getExtras());
-			newIntent.setClassName("com.example.myhome", "com.myhome.activity.PhotoHandleActivity");
-			startActivityForResult(newIntent, 2);
-			
-			
+			srcIntent=data;
 		}
 	}
 

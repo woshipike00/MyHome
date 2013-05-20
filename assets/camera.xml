@@ -4,10 +4,10 @@
 
 <message>
         
-    <action type="startActivity"></action>
+    <action type="startActivityForResult"></action>
     
     <elements>
-        	<element flag="6"  source="null">
+        	<element flag="7"  source="null">
         	    <parameter>action:android.media.action.IMAGE_CAPTURE</parameter>
         	</element>
    	      	

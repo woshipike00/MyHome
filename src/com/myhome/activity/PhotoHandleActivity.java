@@ -8,6 +8,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 
@@ -18,6 +19,7 @@ public class PhotoHandleActivity extends Activity{
 		
 		super.onCreate(savedInstanceState);
 		// TODO Auto-generated method stub
+		
 		//保存图片到sd卡
 		Intent data=getIntent();
 		Bitmap pic=(Bitmap)data.getExtras().get("data");
@@ -36,8 +38,7 @@ public class PhotoHandleActivity extends Activity{
 		}
 		
 		Intent result=new Intent();
-		result.putExtra("filepath", filepath);
-		
+		result.putExtra("photouri", Uri.fromFile(new File(filepath)));
 		setResult(RESULT_OK, result);
 		finish();
 	}
