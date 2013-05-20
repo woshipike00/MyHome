@@ -107,6 +107,8 @@ public class MyHome extends Activity {
 				
 				if(count>=appParsers.size()){
 					Log.v("myhome", "workflow end");
+					count=0;
+					mfWindow.changeContent("start");
 					return;
 				}
 				
@@ -143,8 +145,8 @@ public class MyHome extends Activity {
 				if(count>=appList.size()-1)
 					mfWindow.changeContent("end");
 				else
-				    mfWindow.changeContent(appList.get(count)+" --> "+appList.get(count+1));
-				count++;
+					mfWindow.changeContent(appList.get(count)+" --> "+appList.get(count+1));
+				count++;			    
 				
 			}
         	
