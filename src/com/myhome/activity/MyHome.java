@@ -15,6 +15,7 @@ import com.myhome.utils.APPDownload;
 import com.myhome.utils.AppParser;
 import com.myhome.utils.IntentUtil;
 import com.myhome.utils.PackageUtil;
+import com.myhome.utils.APPDownload.DownloadTask;
 import com.myhome.widgets.FloatingWindow;
 import com.myhome.widgets.MyPagerAdapter;
 
@@ -36,6 +37,7 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MyHome extends Activity {
 
@@ -50,6 +52,7 @@ public class MyHome extends Activity {
 	private ArrayList<HashMap<String, String>> confs;
 	private static Intent srcIntent;
 	private static int count=0;
+	static boolean isdownloading=false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -118,17 +121,25 @@ public class MyHome extends Activity {
 				//check if we need to install the new software
 				if(appParser.getType().equals("Third_party")){
 					boolean isinstalled=PackageUtil.findpackage(context.getApplicationContext(),"com.sina.weibo");
-					if(isinstalled)
+					if(isinstalled){
 						Log.v("myhome", "the package has been installed");
+						isdownloading=false;
+
+					}
 					else {
+						if(isdownloading){
+							Toast.makeText(context, "the apk is downloading", Toast.LENGTH_SHORT).show();
+							return;
+
+						}
 						
 						Log.v("myhome", "download and install");
-						try {
-							APPDownload.getapkinstalled(context, "http://gdown.baidu.com/data/wisegame/6dbb6f730eb41a57/weibo.apk", "weibo.apk");
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						Toast.makeText(context, "weibo.apk"+" is downloading", Toast.LENGTH_SHORT).show();
+						DownloadTask mDownloadTask=new DownloadTask(context, "weibo.apk");
+						mDownloadTask.execute("http://gdown.baidu.com/data/wisegame/6dbb6f730eb41a57/weibo.apk");
+						Log.v("myhome", "after download");
+						isdownloading=true;
+						return;
 					}
 				}
 				
