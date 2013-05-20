@@ -2,17 +2,24 @@ package com.myhome.app;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+
 import com.example.myhome.R;
+import com.myhome.utils.AppParser;
+import com.myhome.utils.WorkFlowParser;
 import com.myhome.widgets.FloatingWindow;
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 
 public class HomeApp extends Application{
 	
-	private ArrayList<HashMap<String, Object>> workflow;
+	//private ArrayList<HashMap<String, Object>> workflow;
+	private ArrayList<String> appList=new ArrayList<String>();
+	private ArrayList<AppParser> appParsers;
 	private FloatingWindow floatingWindow;
+	private Context context;
 	
 	@Override
 	public void onCreate() {
@@ -20,22 +27,28 @@ public class HomeApp extends Application{
 		
 		super.onCreate();
 		
-        workflow=new ArrayList<HashMap<String,Object>>();
+		context=getApplicationContext();
+		
+		//parse the xml files
+		WorkFlowParser.mainParser(context, appList);
+		appParsers=new ArrayList<AppParser>();
+		for (int i=0;i<appList.size();i++){
+			appParsers.add(new AppParser(appList.get(i), context));
+		}
         
 		//set floating window
 		setFloatingWindow();
 		floatingWindow.display();		
 	}
-
 	
-	public ArrayList<HashMap<String, Object>> getWorkFlow(){
-		return workflow;
+	public ArrayList<String> getAppList(){
+		return appList;
 	}
 	
-	
-	public void setworkflow(){
-		
+	public ArrayList<AppParser> getAppParsers(){
+		return appParsers;
 	}
+	
 	
 	public void setFloatingWindow(){
 		
@@ -45,6 +58,9 @@ public class HomeApp extends Application{
 		
 	}
 	
+	public FloatingWindow getFloatingWindow(){
+		return floatingWindow;
+	}
 
 
 }

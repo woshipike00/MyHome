@@ -1,0 +1,29 @@
+<activity>
+
+<source type="Buildin"></source>
+
+<message>
+        
+    <action type="startActivityForResult"></action>
+    
+    <elements>
+        	<element flag="6"  source="srcIntent">
+        	</element>
+        
+        	<element flag="8"  source="null">
+        	    <parameter>packageName:com.example.myhome</parameter>
+        	    <parameter>className:com.myhome.activity.PhotoHandleActivity</parameter>
+        	</element>	      	
+   	</elements>
+   	
+</message>
+
+<!-- Partner link type -->
+<partnerLinkType name="photoHandlerLT">
+  <role name="photaHandlerService">
+    <portType name="photoHandlerPT">
+    </portType>
+  </role>
+</partnerLinkType>
+    
+</activity>

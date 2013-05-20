@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.content.Context;
@@ -30,13 +29,13 @@ public class APPDownload {
 		FileOutputStream out=new FileOutputStream(file);
 		byte[] buf=new byte[256];
 		int count=0;
-		int total=in.available();
+		//int total=in.available();
 		int current=0;
 		
 		Log.v("myhome", "download start");
 
 		if(urlConnection.getResponseCode()==200){
-			int i=0;
+			//int i=0;
 			while((count=in.read(buf))>0){
 				current+=count;
 				Log.v("myhome", "downloading..."+current);

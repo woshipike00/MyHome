@@ -5,13 +5,13 @@ import com.example.myhome.R;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class FloatingWindow {
@@ -19,11 +19,13 @@ public class FloatingWindow {
 	private WindowManager windowManager;
 	private WindowManager.LayoutParams params;
 	private View windowView;
+	private TextView mTextView;
+	private ImageView mImageView;
 	private LayoutInflater layoutInflater;
 	
 	public FloatingWindow(Context context){
-		windowManager=(WindowManager) context.getSystemService(context.WINDOW_SERVICE);
-		layoutInflater=(LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+		windowManager=(WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		layoutInflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		params=new LayoutParams();
 	}
 	
@@ -45,13 +47,14 @@ public class FloatingWindow {
 	
 	public void setView(int resource){
 		windowView=layoutInflater.inflate(resource, null);
-		TextView tv=(TextView)windowView.findViewById(R.id.textView1);
-		tv.setTextColor(Color.BLACK);
+		mImageView=(ImageView)windowView.findViewById(R.id.imageView1);
+		mTextView=(TextView)windowView.findViewById(R.id.textView1);
+		mTextView.setTextColor(Color.WHITE);
+		mImageView.setAlpha(150);
 		
 		//set floating window movable
 		windowView.setOnTouchListener(new View.OnTouchListener() {
 			
-
 			float startx=0;
 			float starty=0;
 			
@@ -59,29 +62,22 @@ public class FloatingWindow {
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 
-				float x=0,y=0;
+				float x=event.getRawX();
+				float y=event.getRawY()-25;
+				
 				
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
 					startx=event.getX();
-					starty=event.getY();
-					//updatePosition(x-startx, y-starty);
+					starty=event.getY();	
 					break;
 				case MotionEvent.ACTION_MOVE:
-					x=event.getX();
-					y=event.getY();
-					updatePosition(params.x+x-startx, params.y+y-starty);
-					//Log.v("myhome", "action_move: "+x+","+y);
-					//Log.v("myhome", "action_move: "+startx+","+starty);
-					//Log.v("myhome", "action_move: "+(x-startx)+","+(y-starty));
-
+					updatePosition(x-startx, y-starty);
 					break;
 				case MotionEvent.ACTION_UP:
 					
 					break;
-		
-				default:
-					break;
+
 				}
 				
 				return false;
@@ -102,6 +98,10 @@ public class FloatingWindow {
 	
 	public void hide(){
 		windowManager.removeView(windowView);
+	}
+	
+	public void changeContent(String content){
+		mTextView.setText(content);
 	}
 
 }

@@ -39,6 +39,7 @@
                 
             </intent-filter>
         </activity>
+        <activity android:name="com.myhome.activity.PhotoHandleActivity"></activity>
 
     </application>
 

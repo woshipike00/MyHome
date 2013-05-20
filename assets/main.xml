@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<task name="Myhome">
+
+	<partnerLinks>
+	    <partnerLink name="camera" 
+                   partnerLinkType="cameraLT"
+                   partnerRole="cameraService"/>
+	    <partnerLink name="photoHandler" 
+                   partnerLinkType="photoHandlerLT"
+                   partnerRole="photoHandlerService"/>
+	    <partnerLink name="weibo" 
+                   partnerLinkType="weiboLT"
+                   partnerRole="weiboService"/>
+	    <partnerLink name="sms" 
+                   partnerLinkType="smsLT"
+                   partnerRole="smsService"/>
+	</partnerLinks>
+		
+	<intents>
+	    <intent name="MyhomeRequest"/>
+		<intent name="CameraRequest"/>
+		<intent name="CameraResponse"/>
+		<intent name="PhotoHandlerRequest"/>
+		<intent name="PhotoHandlerResponse"/>
+		<intent name="weiboRequest"/>
+		<intent name="weiboResponse"/>
+		<intent name="smsRequest"/>
+		<intent name="smsResponse"/>
+		<intent name="MyhomeResponse"/>	    
+	</intents>
+
+	<sequence>
+	    
+	    <receive partnerLink="user"	     	        	 	
+	    ></receive>	    	
+	    	<copy>
+		          <from intent="MyhomeRequest"/>
+		          <to intent="cameraRequest"/>
+		    </copy>	
+		    
+		<invoke partnerLink="camera"
+		    	portType="cameraPT"
+		    	></invoke>						
+			<copy>
+		          <from intent="cameraResponse"/>
+		          <to intent="photoHandlerRequest"/>
+		    </copy>		 
+		             		     		
+		<invoke partnerLink="photoHandler"
+		    	portType="photoHandlerPT"
+		    	></invoke>		
+			<copy>
+		          <from intent="photoHandlerResponse"/>
+		          <to intent="weiboRequest"/>
+		    </copy>	
+		    
+		<invoke partnerLink="weibo"
+		    	portType="weiboPT"
+		    	></invoke>
+			<copy>
+		          <from intent="weiboResponse"/>
+		          <to intent="smsRequest"/>
+		    </copy>	
+		    
+		<invoke partnerLink="sms"
+		    	portType="smsPT"
+		    	></invoke>
+			<copy>
+		          <from intent="smsResponse"/>
+		          <to intent="MyhomeRequest"/>
+		    </copy>	
+		    
+	</sequence>
+	
+</task>
