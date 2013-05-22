@@ -13,6 +13,7 @@ import com.example.myhome.R;
 import com.myhome.app.HomeApp;
 import com.myhome.utils.APPDownload;
 import com.myhome.utils.AppParser;
+import com.myhome.utils.HttpUtil;
 import com.myhome.utils.IntentUtil;
 import com.myhome.utils.PackageUtil;
 import com.myhome.utils.APPDownload.DownloadTask;
@@ -117,10 +118,11 @@ public class MyHome extends Activity {
 				
 				
 				AppParser appParser=appParsers.get(count);
+				String curapp=appList.get(count);
 				
 				//check if we need to install the new software
 				if(appParser.getType().equals("Third_party")){
-					boolean isinstalled=PackageUtil.findpackage(context.getApplicationContext(),"com.sina.weibo");
+					boolean isinstalled=PackageUtil.findpackage(context.getApplicationContext(),appParser.getPkgName());
 					if(isinstalled){
 						Log.v("myhome", "the package has been installed");
 						isdownloading=false;
@@ -133,10 +135,16 @@ public class MyHome extends Activity {
 
 						}
 						
-						Log.v("myhome", "download and install");
-						Toast.makeText(context, "weibo.apk"+" is downloading", Toast.LENGTH_SHORT).show();
-						DownloadTask mDownloadTask=new DownloadTask(context, "weibo.apk");
-						mDownloadTask.execute("http://gdown.baidu.com/data/wisegame/6dbb6f730eb41a57/weibo.apk");
+						//Toast.makeText(context, curapp+".apk"+" is downloading", Toast.LENGTH_SHORT).show();
+						
+						//check the newwork state
+						if(!HttpUtil.testHTTP(context)){
+							Toast.makeText(context, "please check the network state!", Toast.LENGTH_SHORT).show();
+							return;
+						}
+						
+						DownloadTask mDownloadTask=new DownloadTask(context, curapp+".apk");
+						mDownloadTask.execute(appParser.getDownloadLink());
 						Log.v("myhome", "after download");
 						isdownloading=true;
 						return;
@@ -148,7 +156,7 @@ public class MyHome extends Activity {
 				confs=appParsers.get(count).getMethodList();
 				IntentUtil.confIntent(newIntent, srcIntent, confs);
 				
-				if(appParser.getActionType().equals("startActivity"))
+				if(appParser.getStartType().equals("startActivity"))
 					((MyHome)context).startActivity(newIntent);
 				else
 					((MyHome)context).startActivityForResult(newIntent, 1);

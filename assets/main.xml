@@ -55,6 +55,24 @@
 		          <to intent="weiboRequest"/>
 		    </copy>	
 		    
+		    
+		<invoke partnerLink="mtxx"
+		    	portType="weiboPT"
+		    	></invoke>
+			<copy>
+		          <from intent="weiboResponse"/>
+		          <to intent="smsRequest"/>
+		    </copy>	
+		
+			
+	    <invoke partnerLink="getMtxxPic"
+		    	portType="weiboPT"
+		    	></invoke>
+			<copy>
+		          <from intent="weiboResponse"/>
+		          <to intent="smsRequest"/>
+		    </copy>	
+		    
 		<invoke partnerLink="weibo"
 		    	portType="weiboPT"
 		    	></invoke>

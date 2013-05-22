@@ -2,35 +2,39 @@
 
 <source type="System_default"></source>
 
-<message>
+<intent>
         
-    <action type="startActivity"></action>
+    <androidStartType name="startActivity"></androidStartType>
     
-    <elements>
-        
-            <element flag="7"  source="null">
-        	    <parameter>action:android.intent.action.SENDTO</parameter>
-        	</element>
-        	
-            <element flag="9"  source="null">
-        	    <parameter>data:sms:</parameter>
-        	</element>
-        
-        	<element flag="2"  source="null">
-        	    <parameter>name:sms_body</parameter>
-        	    <parameter>value:I hava sent a photo to my sina weibo!</parameter>              	        
-        	</element>
-              	
-   	</elements>
+    <extras>
+                             	
+   	</extras>
    	
-</message>
+</intent>
 
 <!-- Partner link type -->
 <partnerLinkType name="smsLT">
+    
   <role name="smsService">
     <portType name="smsPT">
     </portType>
   </role>
+  
+  <intentFilters>
+       <intentFilter flag="7"  source="null">
+        	   <parameter>action:android.intent.action.SENDTO</parameter>
+       </intentFilter>
+        	
+       <intentFilter flag="9"  source="null">
+        	    <parameter>data:sms:</parameter>
+       </intentFilter>
+        
+       <intentFilter flag="2"  source="null">
+        	    <parameter>name:sms_body</parameter>
+        	    <parameter>value:I hava sent a photo to my sina weibo!</parameter>              	        
+        </intentFilter>
+  </intentFilters>
+ 
 </partnerLinkType>
     
 </activity>

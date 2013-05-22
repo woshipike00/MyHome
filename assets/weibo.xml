@@ -2,43 +2,56 @@
 
 <source type="Third_party"></source>
 
-<message>
+<intent>
         
-    <action type="startActivity"></action>
+    <androidStartType name="startActivity"></androidStartType>
     
-    <elements>
-        	<element flag="7"  source="null">
-        	    <parameter>action:android.intent.action.SEND</parameter>
-        	</element>
-        	
-        	<element flag="15"  source="null">
-        	    <parameter>type:image/*</parameter>
-        	</element>
-        	
-        	<element flag="2"  source="null">
+    <extras>        	       	
+        	<extra flag="2"  source="null">
         	    <parameter>name:android.intent.extra.TEXT</parameter>
         	    <parameter>value:test</parameter>
-        	</element>	
+        	</extra>	
         	
-        	<element flag="5"  source="srcIntent">
+        	<extra flag="5"  source="srcIntent">
         	    <parameter>name:android.intent.extra.STREAM</parameter>
         	    <parameter>value:photouri</parameter>
-        	</element>	
-        
-        	<element flag="8"  source="null">
-        	    <parameter>packageName:com.sina.weibo</parameter>
-        	    <parameter>className:com.sina.weibo.EditActivity</parameter>
-        	</element>	      	
-   	</elements>
+        	</extra>	        
+        		      	
+   	</extras>
    	
-</message>
+</intent>
 
 <!-- Partner link type -->
 <partnerLinkType name="weiboLT">
+    
   <role name="weiboService">
     <portType name="weiboPT">
     </portType>
   </role>
+  
+  <packageName value="anc">
+      
+  </packageName>
+	
+  <downloadLink value="http://gdown.baidu.com/data/wisegame/6dbb6f730eb41a57/weibo.apk">
+      
+  </downloadLink>
+  
+  <intentFilters>
+      <intentFilter flag="7"  source="null">
+        	    <parameter>action:android.intent.action.SEND</parameter>
+      </intentFilter>
+        	
+      <intentFilter flag="15"  source="null">
+        	    <parameter>type:image/*</parameter>
+      </intentFilter>
+        	
+      <intentFilter flag="8"  source="null">
+        	    <parameter>packageName:com.sina.weibo</parameter>
+        	    <parameter>className:com.sina.weibo.EditActivity</parameter>
+      </intentFilter>      
+  </intentFilters>
+  
 </partnerLinkType>
     
 </activity>	

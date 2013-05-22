@@ -2,28 +2,34 @@
 
 <source type="Buildin"></source>
 
-<message>
+<intent>
         
-    <action type="startActivityForResult"></action>
+    <androidStartType name="startActivityForResult"></androidStartType>
     
-    <elements>
-        	<element flag="6"  source="srcIntent">
-        	</element>
-        
-        	<element flag="8"  source="null">
-        	    <parameter>packageName:com.example.myhome</parameter>
-        	    <parameter>className:com.myhome.activity.PhotoHandleActivity</parameter>
-        	</element>	      	
-   	</elements>
+    <extras>
+        	      	
+   	</extras>
    	
-</message>
+</intent>
 
 <!-- Partner link type -->
 <partnerLinkType name="photoHandlerLT">
+    
   <role name="photaHandlerService">
     <portType name="photoHandlerPT">
     </portType>
   </role>
+  
+  <intentFilters>
+      <intentFilter flag="6"  source="srcIntent">
+      </intentFilter>
+        
+       <intentFilter flag="8"  source="null">
+        	 <parameter>packageName:com.example.myhome</parameter>
+        	 <parameter>className:com.myhome.activity.PhotoHandleActivity</parameter>
+       </intentFilter>	
+  </intentFilters>
+  
 </partnerLinkType>
     
 </activity>

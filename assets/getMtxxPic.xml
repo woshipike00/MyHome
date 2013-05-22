@@ -1,0 +1,31 @@
+<activity>
+
+<source type="Buildin"></source>
+
+<intent>
+        
+    <androidStartType name="startActivityForResult"></androidStartType>
+   	
+</intent>
+
+<!-- Partner link type -->
+<partnerLinkType name="getMtxxPicLT">
+    
+  <role name="getMtxxPicService">
+    <portType name="getMtxxPicPT">
+    </portType>
+  </role>
+  
+  <intentFilters>
+      
+        
+       <classname flag="8"  source="null">
+        	 <parameter>packageName:com.example.myhome</parameter>
+        	 <parameter>className:com.myhome.activity.GetMTXXPicActivity</parameter>
+       </classname>	
+       
+  </intentFilters>
+  
+</partnerLinkType>
+    
+</activity>

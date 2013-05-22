@@ -1,0 +1,52 @@
+<activity>
+
+<source type="Third_party"></source>
+
+<intent>
+        
+    <androidStartType name="startActivity"></androidStartType>
+    
+    <extras>        	       	
+        	
+        	<extra flag="5"  source="srcIntent">
+        	    <parameter>name:android.intent.extra.STREAM</parameter>
+        	    <parameter>value:photouri</parameter>
+        	</extra>	        
+        		      	
+   	</extras>
+   	
+</intent>
+
+<!-- Partner link type -->
+<partnerLinkType name="mtxxLT">
+    
+  <role name="mtxxService">
+    <portType name="mtxxPT">
+    </portType>
+  </role>
+  
+  <packageName value="com.mt.mtxx.mtxx">
+      
+  </packageName>
+	
+  <downloadLink value="http://gdown.baidu.com/data/wisegame/32796dad79793d37/meituxiuxiu.apk">
+      
+  </downloadLink>
+  
+  <intentFilters>
+      
+      <action flag="7"  source="null">
+        	    <parameter>action:android.intent.action.SEND</parameter>
+      </action>
+
+        	
+      <classname flag="8"  source="null">
+        	    <parameter>packageName:com.mt.mtxx.mtxx</parameter>
+        	    <parameter>className:com.meitu.mtxx.img.IMGMainActivity</parameter>
+      </classname>  
+          
+  </intentFilters>
+  
+</partnerLinkType>
+    
+</activity>	

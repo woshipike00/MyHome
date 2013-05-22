@@ -2,18 +2,15 @@
 
 <source type="System_default"></source>
 
-<message>
+<intent>
         
-    <action type="startActivityForResult"></action>
+    <androidStartType name="startActivityForResult"></androidStartType>
     
-    <elements>
-        	<element flag="7"  source="null">
-        	    <parameter>action:android.media.action.IMAGE_CAPTURE</parameter>
-        	</element>
-   	      	
-   	</elements>
+    <extras>
+        	
+   	</extras>
    	
-</message>
+</intent>
 
 <!-- Partner link type -->
 <partnerLinkType name="cameraLT">
@@ -21,6 +18,13 @@
     <portType name="cameraPT">
     </portType>
   </role>
+  
+  <intentFilters>
+      <intentFilter flag="7"  source="null">
+        	    <parameter>action:android.media.action.IMAGE_CAPTURE</parameter>
+  	  </intentFilter>
+  </intentFilters>
+      
 </partnerLinkType>
     
 </activity>	

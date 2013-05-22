@@ -25,7 +25,7 @@ public class GetMTXXPicActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		//遍历MTXX文件夹下所有文件
+		//traverse the MTXX folder 
 		File dir=new File(dirpath);
 		if(!dir.isDirectory()){
 			Log.v("myhome", "no dir");
@@ -40,7 +40,7 @@ public class GetMTXXPicActivity extends Activity{
 		}
 		
 		
-		//对所有文件按时间排序，取出最新的照片
+		//sort all files by the time last modified, and get the latest photo
 		ArrayList<Map.Entry<Long,String>> list=new ArrayList<Map.Entry<Long,String>>(map.entrySet());
 		Collections.sort(list, new Comparator<Map.Entry<Long, String>>() {
 
