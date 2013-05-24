@@ -54,9 +54,9 @@ public class GetMTXXPicActivity extends Activity{
 		});
 		
 		String filename=list.get(list.size()-1).getValue();
-		Intent intent=new Intent();
-		intent.putExtra("photouri", Uri.fromFile(new File(dirpath+"/"+filename)));
-		setResult(RESULT_OK);
+		Intent result=new Intent();
+		result.putExtra("photouri", Uri.fromFile(new File(dirpath+"/"+filename)));
+		setResult(RESULT_OK,result);
 		finish();
 		
 	}

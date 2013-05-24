@@ -20,9 +20,9 @@
   </role>
   
   <intentFilters>
-      <intentFilter flag="7"  source="null">
+      <action flag="7"  source="null">
         	    <parameter>action:android.media.action.IMAGE_CAPTURE</parameter>
-  	  </intentFilter>
+  	  </action>
   </intentFilters>
       
 </partnerLinkType>

@@ -7,6 +7,15 @@
     <androidStartType name="startActivityForResult"></androidStartType>
     
     <extras>
+        
+        <extra flag="6"  source="srcIntent">
+        </extra>
+        
+        <extra flag="8"  source="null">
+        	 <parameter>packageName:com.example.myhome</parameter>
+        	 <parameter>className:com.myhome.activity.PhotoHandleActivity</parameter>
+        </extra>	
+
         	      	
    	</extras>
    	
@@ -19,16 +28,7 @@
     <portType name="photoHandlerPT">
     </portType>
   </role>
-  
-  <intentFilters>
-      <intentFilter flag="6"  source="srcIntent">
-      </intentFilter>
-        
-       <intentFilter flag="8"  source="null">
-        	 <parameter>packageName:com.example.myhome</parameter>
-        	 <parameter>className:com.myhome.activity.PhotoHandleActivity</parameter>
-       </intentFilter>	
-  </intentFilters>
+
   
 </partnerLinkType>
     

@@ -29,27 +29,27 @@
     </portType>
   </role>
   
-  <packageName value="anc">
+  <packageName value="com.sina.weibo">
       
   </packageName>
-	
-  <downloadLink value="http://gdown.baidu.com/data/wisegame/6dbb6f730eb41a57/weibo.apk">
+	  
+  <downloadLink value="http://gdown.baidu.com/data/wisegame/dca1df31413bac05/weibo.apk">
       
   </downloadLink>
   
   <intentFilters>
-      <intentFilter flag="7"  source="null">
+      <action flag="7"  source="null">
         	    <parameter>action:android.intent.action.SEND</parameter>
-      </intentFilter>
+      </action>
         	
-      <intentFilter flag="15"  source="null">
+      <type flag="15"  source="null">
         	    <parameter>type:image/*</parameter>
-      </intentFilter>
+      </type>
         	
-      <intentFilter flag="8"  source="null">
+      <classname flag="8"  source="null">
         	    <parameter>packageName:com.sina.weibo</parameter>
         	    <parameter>className:com.sina.weibo.EditActivity</parameter>
-      </intentFilter>      
+      </classname>      
   </intentFilters>
   
 </partnerLinkType>

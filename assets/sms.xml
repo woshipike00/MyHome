@@ -7,8 +7,13 @@
     <androidStartType name="startActivity"></androidStartType>
     
     <extras>
-                             	
-   	</extras>
+        
+        <extra flag="2"  source="null">
+        	    <parameter>name:sms_body</parameter>
+        	    <parameter>value:I hava sent a photo to my sina weibo!</parameter>              	        
+        </extra>
+        
+    </extras>
    	
 </intent>
 
@@ -21,18 +26,14 @@
   </role>
   
   <intentFilters>
-       <intentFilter flag="7"  source="null">
+       <action flag="7"  source="null">
         	   <parameter>action:android.intent.action.SENDTO</parameter>
-       </intentFilter>
+       </action>
         	
-       <intentFilter flag="9"  source="null">
+       <data flag="9"  source="null">
         	    <parameter>data:sms:</parameter>
-       </intentFilter>
+       </data>
         
-       <intentFilter flag="2"  source="null">
-        	    <parameter>name:sms_body</parameter>
-        	    <parameter>value:I hava sent a photo to my sina weibo!</parameter>              	        
-        </intentFilter>
   </intentFilters>
  
 </partnerLinkType>

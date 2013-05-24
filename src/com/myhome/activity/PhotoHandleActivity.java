@@ -22,6 +22,10 @@ public class PhotoHandleActivity extends Activity{
 		
 		//保存图片到sd卡
 		Intent data=getIntent();
+		
+		if(data==null)
+			return;
+		
 		Bitmap pic=(Bitmap)data.getExtras().get("data");
 		String filepath=Environment.getExternalStorageDirectory().getAbsolutePath()+"/pic1.png";
 		try {

@@ -53,7 +53,7 @@ public class MyHome extends Activity {
 	private ArrayList<HashMap<String, String>> confs;
 	private static Intent srcIntent;
 	private static int count=0;
-	static boolean isdownloading=false;
+	private static boolean isdownloading=false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +123,7 @@ public class MyHome extends Activity {
 				//check if we need to install the new software
 				if(appParser.getType().equals("Third_party")){
 					boolean isinstalled=PackageUtil.findpackage(context.getApplicationContext(),appParser.getPkgName());
+					Log.v("myhome", isinstalled+"");
 					if(isinstalled){
 						Log.v("myhome", "the package has been installed");
 						isdownloading=false;
@@ -134,23 +135,22 @@ public class MyHome extends Activity {
 							return;
 
 						}
-						
-						//Toast.makeText(context, curapp+".apk"+" is downloading", Toast.LENGTH_SHORT).show();
-						
+												
 						//check the newwork state
 						if(!HttpUtil.testHTTP(context)){
 							Toast.makeText(context, "please check the network state!", Toast.LENGTH_SHORT).show();
 							return;
 						}
 						
-						DownloadTask mDownloadTask=new DownloadTask(context, curapp+".apk");
+						APPDownload.DownloadTask mDownloadTask=new APPDownload.DownloadTask(context, curapp+".apk");
 						mDownloadTask.execute(appParser.getDownloadLink());
-						Log.v("myhome", "after download");
-						isdownloading=true;
+						
 						return;
 					}
 				}
 				
+				
+				Log.v("myhome", "set intent");
 				//set the new intent and start
 				Intent newIntent=new Intent();
 				confs=appParsers.get(count).getMethodList();
@@ -181,6 +181,18 @@ public class MyHome extends Activity {
 			
 			srcIntent=data;
 		}
+	}
+	
+	public void apkDownloading(){
+		isdownloading=true;
+	}
+	
+	public void apkDownloaded(){
+		isdownloading=false;
+	}
+	
+	public FloatingWindow getFloatingWindow(){
+		return mfWindow;
 	}
 
 
