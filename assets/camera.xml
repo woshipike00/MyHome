@@ -15,8 +15,7 @@
 <!-- Partner link type -->
 <partnerLinkType name="cameraLT">
   <role name="cameraService">
-    <portType name="cameraPT">
-    </portType>
+    
   </role>
   
   <intentFilters>

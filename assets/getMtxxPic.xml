@@ -12,8 +12,7 @@
 <partnerLinkType name="getMtxxPicLT">
     
   <role name="getMtxxPicService">
-    <portType name="getMtxxPicPT">
-    </portType>
+    
   </role>
   
   <intentFilters>

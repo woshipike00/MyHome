@@ -9,6 +9,12 @@
 	    <partnerLink name="photoHandler" 
                    partnerLinkType="photoHandlerLT"
                    partnerRole="photoHandlerService"/>
+	    <partnerLink name="mtxx" 
+                   partnerLinkType="mtxxLT"
+                   partnerRole="mtxxService"/>
+	    <partnerLink name="getMtxxPic" 
+                   partnerLinkType="getMtxxPicLT"
+                   partnerRole="getMtxxPicService"/>
 	    <partnerLink name="weibo" 
                    partnerLinkType="weiboLT"
                    partnerRole="weiboService"/>
@@ -16,79 +22,68 @@
                    partnerLinkType="smsLT"
                    partnerRole="smsService"/>
 	</partnerLinks>
-		
-	<intents>
-	    <intent name="MyhomeRequest"/>
-		<intent name="CameraRequest"/>
-		<intent name="CameraResponse"/>
-		<intent name="PhotoHandlerRequest"/>
-		<intent name="PhotoHandlerResponse"/>
-		<intent name="weiboRequest"/>
-		<intent name="weiboResponse"/>
-		<intent name="smsRequest"/>
-		<intent name="smsResponse"/>
-		<intent name="MyhomeResponse"/>	    
-	</intents>
 
+	<Extras name="cameraExtras"></Extras>
+	<Extras name="mtxxExtras"></Extras>
+	<Extras name="weiboExtras"></Extras>
+	<Extras name="smsExtras"></Extras>		
+	
 	<sequence>
-	    
-	    <receive partnerLink="user"	     	        	 	
-	    ></receive>	    	
-	    	<copy>
-		          <from intent="MyhomeRequest"/>
-		          <to intent="cameraRequest"/>
-		    </copy>	
+	    	    
+		<invoke partnerLink="camera"> 
+		    <from name=""></from>
+		    <input name="" type=""></input>
+		    <output name="pic" type="url"></output>
+		    <to name="photoHandler"></to>
 		    
-		<invoke partnerLink="camera"
-		    	portType="cameraPT"
-		    	></invoke>						
-			<copy>
-		          <from intent="cameraResponse"/>
-		          <to intent="photoHandlerRequest"/>
-		    </copy>		 
+		    <target name="mtxx"></target>
+		</invoke>						
+				 
 		             		     		
-		<invoke partnerLink="photoHandler"
-		    	portType="photoHandlerPT"
-		    	></invoke>		
-			<copy>
-		          <from intent="photoHandlerResponse"/>
-		          <to intent="weiboRequest"/>
-		    </copy>	
-		    
-		    
-		<invoke partnerLink="mtxx"
-		    	portType="weiboPT"
-		    	></invoke>
-			<copy>
-		          <from intent="weiboResponse"/>
-		          <to intent="smsRequest"/>
-		    </copy>	
-		
+		<adapter partnerLink="photoHandler">
+		    <from name="camera"></from>
+		    <input name="pic" type="url"></input>
+		    <output name="new_pic" type="url"></output>
+		    <to name="mtxx"></to>
+		</adapter>		
 			
-	    <invoke partnerLink="getMtxxPic"
-		    	portType="weiboPT"
-		    	></invoke>
-			<copy>
-		          <from intent="weiboResponse"/>
-		          <to intent="smsRequest"/>
-		    </copy>	
+		    		    
+		<invoke partnerLink="mtxx">
+		    <from name="photoHandler"></from>
+		    <input name="new_pic" type="url"></input>
+		    <output name="mtxx_pic" type="url"></output>
+		    <to name="getMtxxPic"></to>
 		    
-		<invoke partnerLink="weibo"
-		    	portType="weiboPT"
-		    	></invoke>
-			<copy>
-		          <from intent="weiboResponse"/>
-		          <to intent="smsRequest"/>
-		    </copy>	
+		    <target name="weibo"></target>
+		</invoke>
+					
+			
+	    <adapter partnerLink="getMtxxPic">
+	        <from name="mtxx"></from>
+		    <input name="mtxx_pic" type="url"></input>
+		    <output name="mtxx_pic" type="url"></output>
+		    <to name="weibo"></to>
+	    </adapter> 
+			
 		    
-		<invoke partnerLink="sms"
-		    	portType="smsPT"
-		    	></invoke>
-			<copy>
-		          <from intent="smsResponse"/>
-		          <to intent="MyhomeRequest"/>
-		    </copy>	
+		<invoke partnerLink="weibo">
+		    <from name="getMtxxPic"></from>
+		    <input name="mtxx_pic" type="url"></input>
+		    <output name="" type=""></output>
+		    <to name=""></to>
 		    
+		    <target name="sms"></target>
+		</invoke>
+			
+		    
+		<invoke partnerLink="sms">
+		    <from name="weibo"></from>
+		    <input name="sms_content" type="String"></input>
+		    <output name="" type=""></output>
+		    <to name=""></to>
+		</invoke>
+			  
 	</sequence>
 	
 </task>
+

@@ -65,7 +65,7 @@ public class APPDownload {
 				int total=urlConnection.getContentLength();	
 				InputStream in=urlConnection.getInputStream();
 				FileOutputStream out=new FileOutputStream(file);
-				byte[] buf=new byte[256];
+				byte[] buf=new byte[1024*1024];
 				int count=0,current=0;
 				
 				((MyHome)context).apkDownloading();

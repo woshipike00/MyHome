@@ -11,15 +11,6 @@
         android:layout_alignParentTop="true"
         android:src="@drawable/chart" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/progressBar1"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/progressBar1"
-        android:text="TextView" />
-
     <ProgressBar
         android:id="@+id/progressBar1"
         style="?android:attr/progressBarStyleHorizontal"
@@ -28,5 +19,13 @@
         android:layout_alignBottom="@+id/imageView1"
         android:layout_marginBottom="25dp"
         android:layout_toRightOf="@+id/imageView1" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/progressBar1"
+        android:text="TextView" />
 
 </RelativeLayout>

@@ -87,17 +87,18 @@ public class MyHome extends Activity {
 		viewList=new ArrayList<View>();
 		View workflow1=mLayoutInflater.inflate(R.layout.workflow, null);
 		workflow1.setBackgroundResource(R.drawable.workflow1);
-		((TextView)(workflow1.findViewById(R.id.textView1))).setText("workflow1");
+		((TextView)(workflow1.findViewById(R.id.title))).setText("workflow1");
+		((TextView)(workflow1.findViewById(R.id.content))).setText("工作流程：\n\n\n1. 拍摄照片\n\n2. 使用美图秀秀美化\n\n3. 将照片发送到微博\n\n4. 短信通知好友");
 		viewList.add(workflow1);
 		
 		View workflow2=mLayoutInflater.inflate(R.layout.workflow, null);
 		workflow2.setBackgroundResource(R.drawable.workflow2);
-		((TextView)(workflow2.findViewById(R.id.textView1))).setText("workflow2");
+		((TextView)(workflow2.findViewById(R.id.title))).setText("workflow2");
 		viewList.add(workflow2);
 		
 		View workflow3=mLayoutInflater.inflate(R.layout.workflow, null);
 		workflow3.setBackgroundResource(R.drawable.workflow3);
-		((TextView)(workflow3.findViewById(R.id.textView1))).setText("workflow3");
+		((TextView)(workflow3.findViewById(R.id.title))).setText("workflow3");
 		viewList.add(workflow3);
 		
 		mViewPager.setAdapter(new MyPagerAdapter(context, viewList));

@@ -17,6 +17,7 @@ public class HomeApp extends Application{
 	
 	//private ArrayList<HashMap<String, Object>> workflow;
 	private ArrayList<String> appList=new ArrayList<String>();
+	private WorkFlowParser mParser;
 	private ArrayList<AppParser> appParsers;
 	private FloatingWindow floatingWindow;
 	private Context context;
@@ -30,7 +31,9 @@ public class HomeApp extends Application{
 		context=getApplicationContext();
 		
 		//parse the xml files
-		WorkFlowParser.mainParser(context, appList);
+		mParser=new WorkFlowParser(context, "main");
+		appList=mParser.getAppQueue();
+		Log.v("myhome", appList.toString());
 		appParsers=new ArrayList<AppParser>();
 		for (int i=0;i<appList.size();i++){
 			appParsers.add(new AppParser(appList.get(i), context));

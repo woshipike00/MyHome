@@ -1,46 +1,52 @@
 package com.myhome.utils;
-
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 
 import android.content.Context;
 import android.util.Log;
 
 
 public class WorkFlowParser {
+	ArrayList<String> appQueue=new ArrayList<String>();
 	
-	//static Queue<String> appQueue=new LinkedList<String> ();
-	
-	public static void mainParser(Context context,ArrayList<String> appQueue) {
+	public WorkFlowParser(Context context,String workFLowName) {
 		try{
+			Log.v("myhome", workFLowName);
+			//InputStream fXmlFile=context.getAssets().open(workFLowName +".xml");
+	        //Log.v("myhome",fXmlFile.toString());
+
+			SAXReader reader = new SAXReader();			
+	        //Document  doc = reader.read(fXmlFile);
+	        Document  doc = reader.read(context.getAssets().open(workFLowName+".xml"));
+
+	        
+			Log.v("myhome", "dkfj"); 
+
+			Element rootElement=doc.getRootElement();
 			
-			InputStream fXmlFile=context.getAssets().open("main.xml");
-			//File fXmlFile = new File("xml/main.xml");
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
-			doc.getDocumentElement().normalize();
-	
-			NodeList invokeList = doc.getElementsByTagName("invoke");	
-			for (int i=0; i<invokeList.getLength(); i++) {	 
-				Node invokeNode = invokeList.item(i);
-				Element e = (Element) invokeNode;
-				String appName=e.getAttribute("partnerLink");
-				appQueue.add(appName);
-			}			
-			Log.v("myhome",appQueue+"");
+			for(Iterator i=rootElement.elementIterator(); i.hasNext();) {
+				Element element=(Element) i.next();	
+				Log.v("myhome", element.getName());
+				if(element.getName().equalsIgnoreCase("sequence")) {
+					for(Iterator sequenceIterator=element.elementIterator(); sequenceIterator.hasNext();) {
+						Element e=(Element)sequenceIterator.next();
+						Log.v("myhome", e.attributeValue("partnerLink"));
+						appQueue.add(e.attributeValue("partnerLink"));
+					}
+				}
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+	    }	
 	}
 	
-
+	public ArrayList<String> getAppQueue() {
+		return appQueue;
+	}
 }

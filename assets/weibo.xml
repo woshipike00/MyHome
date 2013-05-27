@@ -25,8 +25,7 @@
 <partnerLinkType name="weiboLT">
     
   <role name="weiboService">
-    <portType name="weiboPT">
-    </portType>
+    
   </role>
   
   <packageName value="com.sina.weibo">

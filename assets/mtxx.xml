@@ -21,8 +21,7 @@
 <partnerLinkType name="mtxxLT">
     
   <role name="mtxxService">
-    <portType name="mtxxPT">
-    </portType>
+    
   </role>
   
   <packageName value="com.mt.mtxx.mtxx">

@@ -21,8 +21,7 @@
 <partnerLinkType name="smsLT">
     
   <role name="smsService">
-    <portType name="smsPT">
-    </portType>
+    
   </role>
   
   <intentFilters>
