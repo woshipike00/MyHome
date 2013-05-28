@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.example.myhome.R;
+import com.example.myhome.R.drawable;
 import com.myhome.app.HomeApp;
 import com.myhome.utils.APPDownload;
 import com.myhome.utils.AppParser;
@@ -29,13 +30,16 @@ import android.app.Application;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +50,7 @@ public class MyHome extends Activity {
 	private Application mApp;
 	private List<View> viewList;
 	private LayoutInflater mLayoutInflater;
+	private Button share;
 	private ViewPager mViewPager;
 	private FloatingWindow mfWindow;
 	private ArrayList<String> appList;
@@ -171,6 +176,8 @@ public class MyHome extends Activity {
 			}
         	
         });
+        
+
 		
 	}
 
@@ -200,9 +207,28 @@ public class MyHome extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.my_home, menu);
+		
+		
+		menu.add(0, 1, 1, "share");
+		super.onCreateOptionsMenu(menu);
+		
 		return true;
 	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+
+		if(item.getItemId()==1){
+			Intent intent=new Intent(Intent.ACTION_SEND);
+			intent.setType("text/plain");
+			intent.putExtra(intent.EXTRA_TEXT, "workflow");
+			startActivity(intent.createChooser(intent, getTitle()));
+		}
+		return true;
+	}
+	
+	
 
 }
