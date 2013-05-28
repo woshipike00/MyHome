@@ -1,36 +1,25 @@
 package com.myhome.activity;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.example.myhome.R;
-import com.example.myhome.R.drawable;
 import com.myhome.app.HomeApp;
 import com.myhome.utils.APPDownload;
 import com.myhome.utils.AppParser;
 import com.myhome.utils.HttpUtil;
 import com.myhome.utils.IntentUtil;
 import com.myhome.utils.PackageUtil;
-import com.myhome.utils.APPDownload.DownloadTask;
 import com.myhome.widgets.FloatingWindow;
 import com.myhome.widgets.MyPagerAdapter;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Parcelable;
 import android.app.Activity;
 import android.app.Application;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +38,6 @@ public class MyHome extends Activity {
 	private Application mApp;
 	private List<View> viewList;
 	private LayoutInflater mLayoutInflater;
-	private Button share;
 	private ViewPager mViewPager;
 	private FloatingWindow mfWindow;
 	private ArrayList<String> appList;
@@ -221,10 +208,16 @@ public class MyHome extends Activity {
 		// TODO Auto-generated method stub
 
 		if(item.getItemId()==1){
+			
+			String workflow="start--";
+			for (int i=0;i<appList.size();i++){
+				workflow+=appList.get(i)+"--";
+			}
+			workflow+="end";
 			Intent intent=new Intent(Intent.ACTION_SEND);
 			intent.setType("text/plain");
-			intent.putExtra(intent.EXTRA_TEXT, "workflow");
-			startActivity(intent.createChooser(intent, getTitle()));
+			intent.putExtra(Intent.EXTRA_TEXT, workflow);
+			startActivity(Intent.createChooser(intent, getTitle()));
 		}
 		return true;
 	}

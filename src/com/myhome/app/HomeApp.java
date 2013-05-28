@@ -2,7 +2,6 @@ package com.myhome.app;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.example.myhome.R;
 import com.myhome.utils.AppParser;

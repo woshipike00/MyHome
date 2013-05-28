@@ -12,7 +12,6 @@ import com.example.myhome.R;
 import com.myhome.activity.MyHome;
 import com.myhome.widgets.DownloadNotification;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +19,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.RemoteViews;
 import android.widget.Toast;
 
 public class APPDownload {
